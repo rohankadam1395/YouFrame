@@ -1,4 +1,143 @@
+
 .home{
     display: flex;
     flex-direction: column;
-align-items: center;}
+    align-items: center;
+    /* background-color: green; */
+max-width: 100vw;
+    min-height: 100vh;
+}
+
+.btn,button{
+    border: none;
+    text-align: center;
+    font-size:16px;
+    border: 1px solid black;
+    border-radius: 2px;
+    font-weight: 500;
+    background-color: seashell;
+    padding: 0.2em;
+    box-shadow: thistle 1px 1px;
+}
+
+.btn{
+    background-color: cornflowerblue    ;
+    color: white;
+}
+
+label{
+    opacity: 100% ;
+}
+.preview-image{
+    width: 100%;
+height:60%;
+border-radius:25px 0 0 0;
+
+/* overflow: scroll; */
+
+}
+.imageHolder{
+    width: 80%;
+    height:100%;
+    justify-content: center;
+    display: grid;
+row-gap: 1em;
+column-gap: 1em;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 200px 200px 200px;  
+    /* background-color: greenyellow; */
+    /* border: 2px solid black ; */
+
+}
+
+.imageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+width: 100%;
+height: 100%;
+/* border: 2px solid black ; */
+/* border-radius:25px; */
+
+}
+
+.ImageTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: center; */
+    width: 100%;
+    /* text-align: center; */
+background-color: cadetblue ;
+color: black;
+border-radius: 0 0 25px 25px;
+}
+
+.form{
+
+}
+.title{
+    margin-top: 0;
+    font-size: x-large;
+    width: 100%;
+    text-align: center;
+    background-color: cadetblue;  
+    color: white;
+    padding: 0.2em;
+    border-radius: 15px;
+    box-shadow: thistle 0px 3px;
+}
+.uploadInput{
+    display: none;
+}
+
+.imageNum{
+   margin-left: auto;
+   margin-right: auto;
+}
+.deleteBtn{
+        background-color: red;
+    color: white;
+    width: 1.5em;
+    /* margin-right: auto; */
+    /* vertical-align: middle; */
+}
+
+
+.deleteBtn:hover{
+background-color: white;
+color: black;
+}
+
+.deleteBtn:active{
+    
+}
+.submitButton{
+    display: none;
+}
+p{
+    margin: 0;
+}
+.error{
+    margin: 1em;
+}
+
+.hoverDelete{
+    background-color: blue;
+}
+.nothoverDelete{
+    background-color: red;
+
+}
+
+@media(max-width:400px){
+    
+
+    .imageHolder{
+        grid-template-columns: 1fr;
+
+    }
+}
+

@@ -7,10 +7,14 @@ const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 var multiparty=require('multiparty');
 var fs=require('fs');
+const e = require('express');
+var path=require('path');
 const app=express();
 app.use(bodyParser.json());
-var images=[];
-var imageLinks=[];
+
+
+// var images=[];
+// var imageLinks=[];
 
 const Schema=mongoose.Schema;
 
@@ -28,14 +32,18 @@ var imageModel=mongoose.model('imageModel',imageSchema);
 
 mongoose.connect(process.env.MONGODB,{useUnifiedTopology: true,useNewUrlParser: true},(err)=>{
     if(err){
-
+        console.log(err);
+// res.send({data:"Error Connecting to Database"});
     }else{
 console.log("Connected to database");
+
+
 app.get("/api",(req,res)=>{
     console.log("Logging on server");
     imageModel.find({},null,{sort:{_id:-1}},(err,docs)=>{
 if(err){
-
+    console.log(err);
+res.send({error:"Error in fetching Data"});
 }else{
   //  console.log(docs);
     res.send(docs);
@@ -65,36 +73,62 @@ app.post("/api",(req,res)=>{
         console.log(files);
         console.log(fields);
         console.log(req.headers)
- images.push(files.fileName[0]);
-console.log(images.length);
+//  images.push(files.fileName[0]);
+// console.log(images.length);
 // const reader=new FileReader();
-fs.readFile(files.fileName[0].path,{encoding:'base64'},(err,data)=>{
-// console.log(data.toString('BASE64'));
-    // res.set({'Content-type':'image/jpg'});
-//     var img=document.createElement("img");
-//     img.src="data:image/png;base64, "+data;
-console.log(typeof(data));
-imageLinks.push("data:image/png;base64, "+data);
-let obj={
-    name:files.fileName[0].originalFilename,
-    size:files.fileName[0].size,
-    img:{
-        data:"data:image/png;base64, "+data,
-        contentType:"image/png"
-    }
+if(err){
+res.send({error:"Error in Parsing form"});
+}else{
+    fs.readFile(files.fileName[0].path,{encoding:'base64'},(err,data)=>{
+        // console.log(data.toString('BASE64'));
+            // res.set({'Content-type':'image/jpg'});
+        //     var img=document.createElement("img");
+        //     img.src="data:image/png;base64, "+data;
+        // console.log(typeof(data));
+        // imageLinks.push("data:image/png;base64, "+data);
+        
+        var ext=path.extname(files.fileName[0].path);
+        var supportedExtensions=["apng","bmp",
+            "gif","ico","cur",
+            "jpg","jpeg","jfif","pjpeg","pjp",
+            "png",
+            "svg",
+            "tif",
+            "tiff",
+            "webp"];
+        
+        
+        if(supportedExtensions.indexOf(ext)!==-1){
+            let obj={
+                name:files.fileName[0].originalFilename,
+                size:files.fileName[0].size,
+                img:{
+                    data:"data:image/png;base64, "+data,
+                    contentType:"image/png"
+                }
+            }
+            var doc=new imageModel(obj);
+            doc.save((err)=>{
+                if(err){
+            res.send({error:"Error in saving data"});
+                }else{
+                    res.send(files.fileName[0].originalFilename+" Uploaded");
+                }
+            });
+        }else{
+
+            res.send({error:"File Format Not Supported"});
+        
+        }
+        
+        
+        
+        
+        });
 }
-var doc=new imageModel(obj);
-doc.save((err)=>{
-    if(err){
-
-    }else{
-        res.send(files.fileName[0].originalFilename+" Uploaded");
-    }
-})
 
 
 
-});
 // var imageAsBase64=fs.readFileSync(files.fileName[0].path,'base64');
 // console.log(imageAsBase64);
 // reader.onload=(e)=> {
@@ -105,9 +139,38 @@ doc.save((err)=>{
     
 })
 
+app.delete("/api",(req,res)=>{  
+console.log(req.query);
+// imageModel.deleteOne({_id:req.body.id},(err,res)=>{
+//     if(err){
+// res.json(err);
+//     }else{
+//         res.send("  Deleted");
+
+//     }
+// });
+
+imageModel.deleteOne({_id:req.query.id},(err,res2)=>{
+    if(err){
+res.send({error:"Error in deleting the Image"});
+    }else{
+        console.log(res2);
+        res.send("Delete");
+    }
+   
+
+})
+})
 
 
 
+
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static('client/build'));
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+    })
+}
 
     }
 });
