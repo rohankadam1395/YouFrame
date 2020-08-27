@@ -87,7 +87,7 @@ res.send({error:"Error in Parsing form"});
         // console.log(typeof(data));
         // imageLinks.push("data:image/png;base64, "+data);
         
-        var ext=path.extname(files.fileName[0].path);
+        var ext=path.extname(files.fileName[0].path).toLowerCase();
         var supportedExtensions=["apng","bmp",
             "gif","ico","cur",
             "jpg","jpeg","jfif","pjpeg","pjp",
