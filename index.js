@@ -95,14 +95,14 @@ res.send({error:"Error in Parsing form"});
 
             var ext=path.extname(files.fileName[0].path).toLowerCase();
             console.log(ext);
-            var supportedExtensions=["apng","bmp",
-                "gif","ico","cur",
-                "jpg","jpeg","jfif","pjpeg","pjp",
-                "png",
-                "svg",
-                "tif",
-                "tiff",
-                "webp"];
+            var supportedExtensions=[".apng",".bmp",
+                ".gif",".ico",".cur",
+                ".jpg",".jpeg",".jfif",".pjpeg",".pjp",
+                ".png",
+                ".svg",
+                ".tif",
+                ".tiff",
+                ".webp"];
             
             
             if(supportedExtensions.indexOf(ext)!==-1){
