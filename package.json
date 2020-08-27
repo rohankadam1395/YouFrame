@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client":"npm run start --prefix client",
-    "server":"nodemon index.js",
-    "dev":"concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start":"node index.js"
-
+    "client": "npm run start --prefix client",
+    "server": "nodemon index.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +22,10 @@
   "homepage": "https://github.com/rohankadam1395/YouFrame#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.10.0"
+    "mongoose": "^5.10.0",
+    "multiparty": "^4.2.2"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
