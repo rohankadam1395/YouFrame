@@ -80,49 +80,59 @@ if(err){
 res.send({error:"Error in Parsing form"});
 }else{
     fs.readFile(files.fileName[0].path,{encoding:'base64'},(err,data)=>{
+
         // console.log(data.toString('BASE64'));
             // res.set({'Content-type':'image/jpg'});
         //     var img=document.createElement("img");
         //     img.src="data:image/png;base64, "+data;
         // console.log(typeof(data));
         // imageLinks.push("data:image/png;base64, "+data);
-        
-        var ext=path.extname(files.fileName[0].path).toLowerCase();
-        var supportedExtensions=["apng","bmp",
-            "gif","ico","cur",
-            "jpg","jpeg","jfif","pjpeg","pjp",
-            "png",
-            "svg",
-            "tif",
-            "tiff",
-            "webp"];
-        
-        
-        if(supportedExtensions.indexOf(ext)!==-1){
-            let obj={
-                name:files.fileName[0].originalFilename,
-                size:files.fileName[0].size,
-                img:{
-                    data:"data:image/png;base64, "+data,
-                    contentType:"image/png"
-                }
-            }
-            var doc=new imageModel(obj);
-            doc.save((err)=>{
-                if(err){
-            res.send({error:"Error in saving data"});
-                }else{
-                    res.send(files.fileName[0].originalFilename+" Uploaded");
-                }
-            });
+
+        if(err){
+            res.send({error:"File Reading issue"});
+
         }else{
 
-            res.send({error:"File Format Not Supported"});
-        
+            var ext=path.extname(files.fileName[0].path).toLowerCase();
+            console.log(ext);
+            var supportedExtensions=["apng","bmp",
+                "gif","ico","cur",
+                "jpg","jpeg","jfif","pjpeg","pjp",
+                "png",
+                "svg",
+                "tif",
+                "tiff",
+                "webp"];
+            
+            
+            if(supportedExtensions.indexOf(ext)!==-1){
+                console.log("Supported");
+                let obj={
+                    name:files.fileName[0].originalFilename,
+                    size:files.fileName[0].size,
+                    img:{
+                        data:"data:image/png;base64, "+data,
+                        contentType:"image/png"
+                    }
+                }
+                var doc=new imageModel(obj);
+                doc.save((err)=>{
+                    if(err){
+                res.send({error:"Error in saving data"});
+                    }else{
+                        res.send(files.fileName[0].originalFilename+" Uploaded");
+                    }
+                });
+            }else{
+    
+                res.send({error:"File Format Not Supported"});
+            
+            }
+            
+            
+            
+            
         }
-        
-        
-        
         
         });
 }
