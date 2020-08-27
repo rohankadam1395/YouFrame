@@ -141,7 +141,7 @@ render(){
         {/* </form> */}
 </div>
 
-        <button onClick={this.handleApi}>GET</button>
+        {/* <button onClick={this.handleApi}>GET</button> */}
 {this.state.clientData.length ? <div className="imageHolder">
         {this.state.clientData.map((data,index)=>{
                 return(

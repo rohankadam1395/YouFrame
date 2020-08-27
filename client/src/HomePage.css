@@ -8,7 +8,7 @@ max-width: 100vw;
     min-height: 100vh;
 }
 
-.btn,button{
+.button{
     border: none;
     text-align: center;
     font-size:16px;
@@ -21,8 +21,16 @@ max-width: 100vw;
 }
 
 .btn{
+    border: none;
+    text-align: center;
+    font-size:16px;
+    border: 1px solid black;
+    border-radius: 2px;
+    font-weight: 500;
+    padding: 0.2em;
+    box-shadow: thistle 1px 1px;
     background-color: cornflowerblue    ;
-    color: white;
+        color: white;
 }
 
 label{
