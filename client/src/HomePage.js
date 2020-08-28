@@ -52,11 +52,12 @@ this.setState({
     error:response.data.error
 })
 }else{
-    this.handleApi();
-
+    // this.handleApi();
+console.log(response);
     this.setState({
         
-        img:response.data
+        img:response.data.name,
+        clientData:[response.data,...this.state.clientData]
     })
 }
    

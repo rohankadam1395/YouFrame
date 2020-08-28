@@ -47,7 +47,7 @@ res.send({error:"Error in fetching Data"});
 }else{
   //  console.log(docs);
     res.send(docs);
-}
+}   
     })
 
 //     for(let file of  images){
@@ -64,6 +64,7 @@ res.send({error:"Error in fetching Data"});
 //     }
 
     // res.send(imageLinks);
+
 });
 
 app.post("/api",(req,res)=>{
@@ -116,11 +117,15 @@ res.send({error:"Error in Parsing form"});
                     }
                 }
                 var doc=new imageModel(obj);
-                doc.save((err)=>{
+                doc.save((err,savedObj)=>{
                     if(err){
                 res.send({error:"Error in saving data"});
                     }else{
-                        res.send(files.fileName[0].originalFilename+" Uploaded");
+                        // let obj={
+                        //     name:files.fileName[0].originalFilename,
+                        //     data:savedObj
+                        // }
+                        res.json(savedObj);
                     }
                 });
             }else{

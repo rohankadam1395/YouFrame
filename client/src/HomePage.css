@@ -106,6 +106,7 @@ border-radius: 0 0 25px 25px;
 .imageNum{
     margin-left: auto;
    margin-right: auto;
+   color: white;
 }
 .deleteBtn{
     /* display: flex;
