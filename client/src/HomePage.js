@@ -84,8 +84,16 @@ axios.delete("/api",{params:{
     if(response.data.error){
 
     }else{
+        
+        this.setState({
+            clientData:this.state.clientData.filter((item)=>{
+                return item._id!==index;
+                        })
+        })
+
+
         console.log(response); 
-        this.handleApi(); 
+        // this.handleApi(); 
     }
    
 })
