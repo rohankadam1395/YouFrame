@@ -156,7 +156,7 @@ render(){
                 return(
                     // onMouseEnter={(event)=>{ return this.togglHover(event,index);}} onMouseLeave={(event)=>{return this.togglHover(event,index)}}
                  <div key={index} className="imageContainer">
-                 <img  className="preview-image"   src={data.img.data}/>
+                 <img  className="preview-image"  alt="youframe test photos" src={data.img.data}/>
                 <div className="ImageTitle"><p className="imageNum">Image{index}</p><button onClick={()=>{return this.delete(data._id)}} className={"deleteBtn"}>X</button>
 </div>
                  </div>);
