@@ -108,12 +108,16 @@ res.send({error:"Error in Parsing form"});
             
             if(supportedExtensions.indexOf(ext)!==-1){
                 console.log("Supported");
+                let imageType=ext.slice(1);
+                if(imageType==="svg"){
+                    imageType=imageType+"+xml";
+                }
                 let obj={
                     name:files.fileName[0].originalFilename,
                     size:files.fileName[0].size,
                     img:{
-                        data:"data:image/png;base64, "+data,
-                        contentType:"image/png"
+                        data:"data:image/"+imageType+";base64,"+data,
+                        contentType:"image/"+imageType
                     }
                 }
                 var doc=new imageModel(obj);
